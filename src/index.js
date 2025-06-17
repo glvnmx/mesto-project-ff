@@ -47,7 +47,7 @@ formElementAddNewCard.addEventListener("submit", (evt) => {
     link: newCardUrl.value,
   };
 
-  const newCard = addCard(cardData, deleteCard, likeCard);
+  const newCard = addCard(cardData, deleteCard, likeCard, openImagePopup);
 
   cardList.prepend(newCard);
 
@@ -85,7 +85,7 @@ hangListeners(popupImage);
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  
+
   openModal(popupEditProfile);
 });
 
