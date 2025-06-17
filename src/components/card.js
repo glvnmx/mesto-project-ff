@@ -1,6 +1,4 @@
 // Функция удаления карточки
-import { openImagePopup } from "./modal.js";
-
 function deleteCard(evt) {
   evt.target.closest(".card").remove();
 }

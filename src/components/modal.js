@@ -1,5 +1,5 @@
 
-
+//обработчик на кнопку закрытия по кнопке Esc
 const handleEscKeyUp = (e) => {
   if (e.key === "Escape") {
     const popup = document.querySelector(".popup_is-opened"); //находим открытый попап
@@ -7,16 +7,6 @@ const handleEscKeyUp = (e) => {
   }
 };
 
-export const popupImage = document.querySelector(".popup_type_image"); //находим попап для изменения аватара
-const popupImageUrl = popupImage.querySelector(".popup__image");
-const popupImageCaption = popupImage.querySelector(".popup__caption"); //находим элемент для подписи изображения
-
-function openImagePopup(link, caption) {
-  popupImageUrl.src = link;
-  popupImageUrl.alt = caption;
-  popupImageCaption.textContent = caption;
-  openModal(popupImage);
-}
 
 //открытие попапа и добавление слушателя на кнопку закрытия
 const openModal = (modal) => {
@@ -32,7 +22,7 @@ const closeModal = (modal) => {
 
 //добавление слушателей на попапы
 const hangListeners = (elemPopup) => {
-  let closeButton = elemPopup.querySelector(".popup__close");
+  const closeButton = elemPopup.querySelector(".popup__close");
   closeButton.addEventListener("click", () => closeModal(elemPopup));
 
   elemPopup.addEventListener("mousedown", (e) => {
@@ -42,4 +32,4 @@ const hangListeners = (elemPopup) => {
   });
 };
 
-export { openModal, closeModal, hangListeners, openImagePopup };
+export { openModal, closeModal, hangListeners};
