@@ -55,7 +55,7 @@ const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
 let currentUserId;
 
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -163,15 +163,15 @@ editButton.addEventListener("click", () => {
 });
 
 addButton.addEventListener("click", () => {
-  clearValidation(formElementAddNewCard, validationConfig);
-  openModal(popupAddCard);
   formElementAddNewCard.reset();
+  openModal(popupAddCard);
+  clearValidation(formElementAddNewCard, validationConfig);
 });
 
 avatarEdit.addEventListener("click", () => {
-  clearValidation(formElementEditAvatar, validationConfig);
-  openModal(popupAvatar);
   formElementEditAvatar.reset();
+  openModal(popupAvatar);
+  clearValidation(formElementEditAvatar, validationConfig);
 });
 
 formElementEditAvatar.addEventListener("submit", (evt) => {
@@ -196,31 +196,27 @@ formElementEditAvatar.addEventListener("submit", (evt) => {
     });
 });
 
-getUserData()
-  .then((userData) => {
+Promise.all([getUserData(), getInitialCards()])
+  .then(([userData, cards]) => {
     profileName.textContent = userData.name;
     profileJob.textContent = userData.about;
     avatarEdit.style.backgroundImage = `url(${userData.avatar})`;
     currentUserId = userData._id;
-  })
-  .catch((err) => {
-    console.error("Произошла ошибка при загрузке данных пользователя", err);
-  });
 
-getInitialCards()
-  .then((cards) => {
-    cards.reverse().forEach((cardData) => {
-      cardList.appendChild(
-        addCard(cardData, deleteCard, likeCard, openImagePopup, currentUserId)
+    cards.forEach((cardData) => {
+      const cardElement = addCard(
+        cardData,
+        deleteCard,
+        likeCard,
+        openImagePopup,
+        currentUserId
       );
+      cardList.append(cardElement);
     });
   })
   .catch((err) => {
-    console.error("Произошла ошибка при загрузке карточек", err);
+    console.error(
+      "Произошла ошибка при загрузке данных пользователя и карточек",
+      err
+    );
   });
-
-// @todo: Вывести карточки на страницу
-
-// initialCards.forEach((cardPost) => {
-//   cardList.appendChild(addCard(cardPost, deleteCard, likeCard, openImagePopup));
-// });
