@@ -55,7 +55,7 @@ const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
 let currentUserId;
 
-export const validationConfig = {
+const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
